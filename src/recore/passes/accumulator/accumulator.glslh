@@ -1,0 +1,11 @@
+#ifndef ACCUMULATOR_GLSLH
+#define ACCUMULATOR_GLSLH
+
+#include <recore/shaders/shared.glslh>
+
+struct AccumulatorPush {
+  uint frameCount;
+  uint maxSamples;
+};
+
+#endif  // ACCUMULATOR_GLSLH

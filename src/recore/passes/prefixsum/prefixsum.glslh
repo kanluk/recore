@@ -1,0 +1,19 @@
+#ifndef PREFIXSUM_GLSLH
+#define PREFIXSUM_GLSLH
+
+#include <recore/shaders/shared.glslh>
+
+#define PREFIX_SUM_LOCAL_SIZE 1024
+
+DeviceAddressDefRW(UIntBuffer, uint);
+
+struct PrefixSumPush {
+  UIntBuffer data;
+  UIntBuffer workgroupPrefixSums;
+  UIntBuffer totalSum;
+  UIntBuffer prevTotalSum;
+  uint size;
+  uint iteration;
+};
+
+#endif  // PREFIXSUM_GLSLH

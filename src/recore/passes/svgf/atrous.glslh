@@ -1,0 +1,13 @@
+#ifndef ATROUS_GLSLH
+#define ATROUS_GLSLH
+
+#include <recore/shaders/shared.glslh>
+
+struct ATrousPush {
+  float phiColor;
+  float phiNormal;
+  float phiPosition;
+  float stepWidth;
+};
+
+#endif  // ATROUS_GLSLH

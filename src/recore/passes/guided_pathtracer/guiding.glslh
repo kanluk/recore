@@ -1,0 +1,25 @@
+#ifndef GUIDING_GLSLH
+#define GUIDING_GLSLH
+
+#include <recore/shaders/shared.glslh>
+
+#include "shared.glslh"
+
+struct GuidingIndicesPush {
+  GuidingSampleBuffer guidingSamples;
+  CellCounterBuffer cellCounters;
+  CellPrefixSumBuffer cellPrefixSums;
+  CellIndexBuffer cellIndices;
+  uint numGuidingSamples;
+};
+
+struct GuidingEMPush {
+  HashGrid hashGrid;
+  VMMBuffer vmms;
+  GuidingSampleBuffer guidingSamples;
+  CellCounterBuffer cellCounters;
+  CellPrefixSumBuffer cellPrefixSums;
+  CellIndexBuffer cellIndices;
+};
+
+#endif  // GUIDING_GLSLH

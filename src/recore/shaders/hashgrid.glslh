@@ -1,0 +1,24 @@
+#ifndef HASHGRID_GLSLH
+#define HASHGRID_GLSLH
+
+#include <recore/shaders/shared.glslh>
+
+struct HashKF {
+  uint key;
+  uint fingerprint;
+};
+
+struct HashGridCell {
+  HashKF kf;
+  uint lastInsert;
+};
+
+DeviceAddressDefRW(HashGridCellBuffer, HashGridCell);
+
+struct HashGrid {
+  HashGridCellBuffer cells;
+  uint size;
+  float scale;
+};
+
+#endif  // HASHGRID_GLSLH

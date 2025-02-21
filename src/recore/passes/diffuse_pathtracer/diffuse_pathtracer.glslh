@@ -1,0 +1,11 @@
+#ifndef DIFFUSE_PATHTRACER_GLSLH
+#define DIFFUSE_PATHTRACER_GLSLH
+
+#include <recore/shaders/shared.glslh>
+
+struct DiffusePathTracerPush {
+  DeviceAddress(SceneData) scene;
+  uint rngSeed;
+};
+
+#endif  // DIFFUSE_PATHTRACER_GLSLH

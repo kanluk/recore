@@ -1,0 +1,16 @@
+#ifndef PHOTONTRACER_GLSLH
+#define PHOTONTRACER_GLSLH
+
+#include <recore/shaders/shared.glslh>
+
+#include <recore/scene/scene.glslh>
+#include <recore/shaders/hashgrid.glslh>
+#include <recore/shaders/photon_mapping.glslh>
+
+struct PhotonTracerPush {
+  DeviceAddress(SceneData) scene;
+  DeviceAddress(PhotonCellBuffer) photons;
+  HashGrid hashGrid;
+};
+
+#endif  // PHOTONTRACER_GLSLH

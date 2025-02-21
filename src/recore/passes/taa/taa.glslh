@@ -1,0 +1,8 @@
+#ifndef TAA_GLSLH
+#define TAA_GLSLH
+
+#include <recore/shaders/shared.glslh>
+
+struct TAAPush {};
+
+#endif  // TAA_GLSLH

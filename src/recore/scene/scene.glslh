@@ -1,0 +1,83 @@
+#ifndef SCENE_GLSLH
+#define SCENE_GLSLH
+
+#include <recore/shaders/shared.glslh>
+
+struct Vertex {
+  vec3 position;
+  vec3 normal;
+  vec2 texCoord;
+};
+
+struct Mesh {
+  uint firstVertex;
+  uint vertexCount;
+  uint firstIndex;
+  uint indexCount;
+};
+
+struct GeometryInstance {
+  uint meshID;
+  uint materialID;
+  uint modelMatrixID;
+};
+
+#define MATERIAL_ALPHA_MODE_OPAQUE 0
+#define MATERIAL_ALPHA_MODE_MASK 1
+
+struct Material {
+  uint baseColorID;
+  uint normalMapID;
+  uint metallicRoughnessID;
+  vec4 baseColorFactor;
+  vec4 emissiveFactor;
+  float metallicFactor;
+  float roughnessFactor;
+  float ior;
+  uint alphaMode;
+};
+
+struct CameraData {
+  mat4 viewProjection;
+  mat4 prevViewProjection;
+  vec3 position;
+};
+
+struct Light {
+  vec3 position;
+  vec3 direction;
+  vec3 color;
+  float intensity;
+  mat4 shadowMatrix;
+};
+
+DeviceAddressDefRO(VertexBuffer, Vertex);
+DeviceAddressDefRO(IndexBuffer, uint);
+DeviceAddressDefRO(MeshBuffer, Mesh);
+DeviceAddressDefRO(GeometryInstanceBuffer, GeometryInstance);
+DeviceAddressDefRO(MatrixBuffer, mat4);
+DeviceAddressDefRO(MaterialBuffer, Material);
+DeviceAddressDefRO(LightBuffer, Light);
+
+DeviceAddressDefRO_Inline(SceneData, {
+  // Geometry
+  VertexBuffer vertices;
+  IndexBuffer indices;
+
+  // Objects
+  MeshBuffer meshes;
+  GeometryInstanceBuffer geometryInstances;
+  MatrixBuffer modelMatrices;
+  MaterialBuffer materials;
+
+  // Lights
+  uint lightCount;
+  LightBuffer lights;
+
+  CameraData camera;
+
+  uint frameCount;
+  uint staticFrameCount;
+});
+
+#endif  // SCENE_GLSLH

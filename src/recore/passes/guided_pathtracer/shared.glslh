@@ -1,0 +1,24 @@
+#ifndef PATHTRACER_SHARED_GLSLH
+#define PATHTRACER_SHARED_GLSLH
+
+#include <recore/shaders/shared.glslh>
+
+#include <recore/shaders/hashgrid.glslh>
+#include <recore/shaders/vmm.glslh>
+
+struct GuidingSample {
+  vec3 direction;
+  float weight;
+  uint key;
+  uint indexInCell;
+};
+
+DeviceAddressDefRW(GuidingSampleIndexBuffer, uint);
+DeviceAddressDefRW(CellStorageBuffer, uint);
+
+DeviceAddressDefRW(GuidingSampleBuffer, GuidingSample);
+DeviceAddressDefRW(CellCounterBuffer, uint);
+DeviceAddressDefRW(CellPrefixSumBuffer, uint);
+DeviceAddressDefRW(CellIndexBuffer, uint);
+
+#endif  // PATHTRACER_SHARED_GLSLH

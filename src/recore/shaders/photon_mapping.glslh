@@ -1,0 +1,14 @@
+#ifndef PHOTON_MAPPING_GLSLH
+#define PHOTON_MAPPING_GLSLH
+
+#include <recore/shaders/shared.glslh>
+
+struct PhotonCell {
+  vec3 flux;
+  vec3 direction;
+  uint counter;
+};
+
+DeviceAddressDefRW(PhotonCellBuffer, PhotonCell);
+
+#endif  // PHOTON_MAPPING_GLSLH

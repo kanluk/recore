@@ -1,0 +1,16 @@
+#ifndef DIFFUSE_PATHTRACER_GLSLH
+#define DIFFUSE_PATHTRACER_GLSLH
+
+#include <recore/shaders/shared.glslh>
+
+#include <recore/shaders/hashgrid.glslh>
+#include <recore/shaders/photon_mapping.glslh>
+
+struct PhotonMappingPathTracerPush {
+  DeviceAddress(SceneData) scene;
+  HashGrid hashGrid;
+  DeviceAddress(PhotonCellBuffer) photons;
+  uint rngSeed;
+};
+
+#endif  // DIFFUSE_PATHTRACER_GLSLH

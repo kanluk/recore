@@ -1,0 +1,8 @@
+Language: Cpp
+BasedOnStyle: Chromium
+SeparateDefinitionBlocks: Always
+BreakBeforeBinaryOperators: None
+PenaltyBreakAssignment: 100
+BinPackArguments: false
+BinPackParameters: false
+AllowAllParametersOfDeclarationOnNextLine: true

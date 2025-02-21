@@ -1,0 +1,49 @@
+#ifndef SHARED_GLSLH
+#define SHARED_GLSLH
+
+#if defined(__cplusplus)  // C++
+#define RECORE_CPP
+
+#include <vulkan/vulkan.h>
+#include <glm/glm.hpp>
+
+#define uint uint32_t
+
+using bool32 = VkBool32;
+
+using uvec2 = glm::uvec2;
+using uvec3 = glm::uvec3;
+
+using vec2 = glm::vec2;
+using vec3 = glm::vec3;
+using vec4 = glm::vec4;
+
+using mat4 = glm::mat4;
+
+#define DeviceAddressVoid(TYPE) VkDeviceAddress
+#define DeviceAddress(TYPE) VkDeviceAddress
+#define DeviceAddressDefRW(NAME, TYPE) using NAME = VkDeviceAddress
+#define DeviceAddressDefRO(NAME, TYPE) using NAME = VkDeviceAddress
+
+#define DeviceAddressDefRO_Inline(NAME, MEMBERS) struct NAME MEMBERS
+
+#elif defined(GL_core_profile)  // GLSL
+#define RECORE_GLSL
+
+#include <recore/shaders/bda.glsl>
+
+#define bool32 bool
+
+#define DeviceAddressVoid(TYPE) uint64_t
+#define DeviceAddress(TYPE) TYPE
+#define DeviceAddressDefRW(NAME, TYPE) BDA_RW(NAME, TYPE)
+#define DeviceAddressDefRO(NAME, TYPE) BDA_RO(NAME, TYPE)
+
+#define DeviceAddressDefRO_Inline(NAME, MEMBERS) \
+  LAYOUT_BDA readonly buffer NAME MEMBERS
+
+#else
+#error SHOULD NEVER HAPPEN !
+#endif
+
+#endif  // SHARED_GLSLH

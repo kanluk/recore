@@ -1,0 +1,30 @@
+#ifndef VMM_GLSLH
+#define VMM_GLSLH
+
+#include <recore/shaders/shared.glslh>
+
+// https://www.mitsuba-renderer.org/~wenzel/files/vmf.pdf
+struct VMF {
+  vec3 mu;      // direction
+  float kappa;  // concentration
+};
+
+struct VMM_Component {
+  VMF vmf;
+  float weight;
+
+  // Sufficient Statistics for streamlining EM
+  vec3 sumWeightedDirections;
+  float sumWeights;
+};
+
+#define VMM_NUM_COMPONENTS 1
+
+struct VMM {
+  float numSamples;
+  VMM_Component components[VMM_NUM_COMPONENTS];
+};
+
+DeviceAddressDefRW(VMMBuffer, VMM);
+
+#endif  // VMM_GLSLH

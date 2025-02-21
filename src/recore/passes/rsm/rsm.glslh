@@ -1,0 +1,13 @@
+#ifndef RSM_GLSLH
+#define RSM_GLSLH
+
+#include <recore/shaders/shared.glslh>
+
+#include <recore/scene/scene.glslh>
+
+struct RSMPush {
+  DeviceAddress(SceneData) scene;
+  uint geometryInstanceID;
+};
+
+#endif  // RSM_GLSLH

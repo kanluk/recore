@@ -1,0 +1,68 @@
+#ifndef LPV_GLSLH
+#define LPV_GLSLH
+
+#include <recore/shaders/shared.glslh>
+
+#define SH_USE_VEC4
+
+#define SH_NUM_BANDS 2
+#define SH_NUM_COEFFICIENTS (SH_NUM_BANDS * SH_NUM_BANDS)
+
+#ifdef RECORE_CPP
+#include <array>
+#define SHFunction std::array<float, static_cast<size_t>(SH_NUM_COEFFICIENTS)>
+#endif
+
+#ifdef RECORE_GLSL
+#define SHFunction float[SH_NUM_COEFFICIENTS]
+#endif
+
+struct SHRGBFunction {
+  SHFunction r;
+  SHFunction g;
+  SHFunction b;
+};
+
+struct RadianceVolumeCell {
+#ifdef SH_USE_VEC4
+  vec4 shRed;
+  vec4 shGreen;
+  vec4 shBlue;
+#else
+  SHRGBFunction shRGB;
+#endif
+  uint counter;
+};
+
+struct GeometryVolumeCell {
+#ifdef SH_USE_VEC4
+  vec4 shGeometry;
+#else
+  SHFunction shGV;
+#endif
+  uint counter;
+};
+
+DeviceAddressDefRW(RadianceVolumeBuffer, RadianceVolumeCell);
+DeviceAddressDefRW(GeometryVolumeBuffer, GeometryVolumeCell);
+
+struct LPVGrid {
+  DeviceAddress(RadianceVolumeBuffer) volume;
+  DeviceAddress(RadianceVolumeBuffer) volumeSwap;
+  DeviceAddress(RadianceVolumeBuffer) volumeAccu;
+  DeviceAddress(GeometryVolumeBuffer) geometryVolume;
+  uvec3 dimensions;
+  vec3 origin;
+  float cellSize;
+};
+
+struct InjectPush {
+  LPVGrid lpvGrid;
+};
+
+struct PropagationPush {
+  uint iteration;
+  LPVGrid lpvGrid;
+};
+
+#endif  // LPV_GLSLH

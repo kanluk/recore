@@ -1,0 +1,27 @@
+#ifndef PATHTRACER_GLSLH
+#define PATHTRACER_GLSLH
+
+#include <recore/shaders/shared.glslh>
+
+#include "shared.glslh"
+
+#ifdef RECORE_GLSL
+#include <recore/scene/scene.glsl>
+#endif  // RECORE_GLSL
+
+#define PATH_TRACER_MAX_BOUNCES 5
+
+struct GuidedPathTracerPush {
+  DeviceAddress(SceneData) scene;
+  HashGrid hashGrid;
+  VMMBuffer vmms;
+  GuidingSampleBuffer guidingSamples;
+  CellCounterBuffer cellCounters;
+  uint rngSeed;
+
+  bool32 train;
+  bool32 guide;
+  float selectGuidingProbability;
+};
+
+#endif  // PATHTRACER_GLSLH
